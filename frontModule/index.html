@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+
+    <title>Openboard_Clone</title>
+</head>
+<body>
+
+    <div class="option-cont">
+        <i class="fa-solid fa-bars"></i>
+    </div>
+
+    <div class="tools-cont scale-tools">
+        
+        <img class="pencil" src="Icons/pencil.svg">
+        <img class="eraser" src="Icons/eraser.svg">
+        <img class="download" src="Icons/download.svg">
+        <img class="upload" src="Icons/upload.svg">
+        <img class="notes" src="Icons/notes.svg">
+        <img class="redo" src="Icons/redo.svg">
+        <img class="undo" src="Icons/undo.svg">
+    </div>
+
+    <div class="pencil-tool-cont">
+
+        <div class="pencil-width-cont">
+            <input type="range" min="2" max="10" value="3" class="pencil-width">
+        </div>
+        <div class="pencil-color-cont">
+            <div class="black pencil-color"></div>
+            <div class="blue pencil-color"></div>
+            <div class="red pencil-color"></div>
+        </div>
+    </div>
+
+    <div class="eraser-tool-cont">
+        <input type="range" min="4" max="20" value="5" class="eraser-width">
+    </div>
+
+    <canvas></canvas>
+    <script src="./tools.js"></script>
+    <script src="./canvas.js"></script>
+</body>
+</html>
