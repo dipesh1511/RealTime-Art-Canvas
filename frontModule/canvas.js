@@ -29,19 +29,35 @@ tool.lineWidth = penWidth;
 
 canvas.addEventListener("mousedown",(e)=>{
     mouseDown = true;
-    beginPath({
+    // beginPath({
+    //     x:e.clientX,
+    //     y:e.clientY
+    // })
+    let data = {
         x:e.clientX,
         y:e.clientY
-    })
+    }
+    socket.emit("beginPath",data);
+
 })
 
 canvas.addEventListener("mousemove",(e)=>{
-    if(mouseDown) drawStroke({
-        x:e.clientX,
-        y:e.clientY,
-        color:eraserFlag ? eraserColor : penColor,
-        width:eraserFlag ? eraserWidth : penWidth
-    })
+    if(mouseDown) {
+        let data ={
+            x:e.clientX,
+            y:e.clientY,
+            color:eraserFlag ? eraserColor : penColor,
+            width:eraserFlag ? eraserWidth : penWidth
+        }
+        socket.emit("drawStroke",data);
+    }
+        
+    //     drawStroke({
+    //     x:e.clientX,
+    //     y:e.clientY,
+    //     color:eraserFlag ? eraserColor : penColor,
+    //     width:eraserFlag ? eraserWidth : penWidth
+    // })
 })
 
 canvas.addEventListener("mouseup",(e)=>{
@@ -55,21 +71,23 @@ canvas.addEventListener("mouseup",(e)=>{
 undo.addEventListener("click",(e)=>{
     if(track > 0) track--;
     // track action
-    let trackObj = {
+    let data = {
         trackValue: track,
         undoRedoTracker
     }
-    undoRedoCanvas(trackObj);
+    // undoRedoCanvas(data);
+    socket.emit("redoUndo",data);
 })
 
 redo.addEventListener("click",(e)=>{
     if(track < undoRedoTracker.length-1) track++;
     // track action
-    let trackObj = {
+    let data = {
         trackValue:track,
         undoRedoTracker
     }
-    undoRedoCanvas(trackObj);
+    // undoRedoCanvas(data);
+    socket.emit("redoUndo",data);
 })
 
 function undoRedoCanvas(trackObj){
@@ -132,3 +150,18 @@ download.addEventListener("click" ,(e) =>{
     a.download = "board.jpg";
     a.click();
 }) 
+
+socket.on("beginPath",(data)=>{
+    // data -> data taken from server
+    beginPath(data);
+})
+
+socket.on("drawStroke",(data)=>{
+    // data -> data taken from server
+    drawStroke(data);
+})
+
+socket.on("redoUndo",(data)=>{
+    // data -> data taken from server
+    undoRedoCanvas(data);
+})
